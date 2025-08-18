@@ -4,9 +4,6 @@ local uuid = require("uuid")
 local time = require("time")
 local env = require("env")
 
--- Get database resource from environment
-local DB_RESOURCE, _ = env.get("wippy.usage:target_db")
-
 local token_usage_repo = {}
 
 -- Constants for time intervals
@@ -19,6 +16,9 @@ token_usage_repo.INTERVAL = {
 
 -- Get a database connection
 local function get_db()
+    -- Get database resource from environment
+    local DB_RESOURCE, _ = env.get("wippy.usage:target_db")
+
     local db, err = sql.get(DB_RESOURCE)
     if err then
         return nil, "Failed to connect to database: " .. err
